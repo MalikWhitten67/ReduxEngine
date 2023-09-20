@@ -1,2 +1,5 @@
 # ReduxEngine
-A html5 dom manipulation game engine
+A performant css and html game engine
+
+
+
