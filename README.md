@@ -100,6 +100,10 @@ class GameMenu extends Scene {
    this.player.addAnimationState('inPlace', `texture('https://picsum.photos/200/300')`);
 
    this.entities.push(this.player) // apply the Entity to the game scene
+   // Apply a camera to the given scene - it follows the player closely
+   const camera = new Camera(this.engine.window(), this.player, 'white');
+   // set camera
+   this.engine.setCamera(camera)
  }
 
   updateCallback(entities){
