@@ -316,13 +316,13 @@ class Camera {
             const targetX = this.targetEntity.x;
             const targetY = this.targetEntity.y;
 
-            // follow entitity closely
             const newOffsetX = targetX - this.container.clientWidth / 2 + this.targetEntity.width / 2;
             const newOffsetY = targetY - this.container.clientHeight / 2 + this.targetEntity.height / 2;
-            // Apply the new position to the container's scroll position
-            if(this.container.scrollLeft !== newOffsetX){
+            
+            if(this.container.getBoundingClientRect().x !== newOffsetX){
                 this.container.style.transform = `translate(${this.offsetX - newOffsetX}px, ${this.offsetY - newOffsetY}px)`;
             }
+            
             this.container.style.backgroundColor = this.voidColor;
 
 
