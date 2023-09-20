@@ -113,7 +113,7 @@ class GameMenu extends Scene {
  inputHandler() {
      // addCustomInput is ran inside the game loop reading user input
      this.addCustomInput('ArrowRight', () => {
-        const newX = this.player.x - 10
+        const newX = this.player.x + 10
 
         /**
         * @class ReduxEngine
