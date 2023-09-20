@@ -136,7 +136,9 @@ class GameMenu extends Scene {
           // change the animation state of the Entity
           this.player.changeState('inPlace')
        }
-     })
+     }, ()=>{
+     // do something when the RightArrow is released
+    })
   }
 }
 
