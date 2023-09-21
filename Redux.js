@@ -208,6 +208,7 @@ class ReduxEngine {
             this.fpsElement.style.color = color;
             this.fpsElement.style.left = '10px';
             this.container.appendChild(this.fpsElement);
+            document.title = `FPS: ${fps.toFixed(2)}`
         }
         this.fpsElement.innerText = `FPS: ${fps.toFixed(2)}`;
     }
@@ -311,25 +312,33 @@ class Camera {
     }
 
     update() {
-        console.log(this.targetEntity)
         if (this.targetEntity) {
             const targetX = this.targetEntity.x;
             const targetY = this.targetEntity.y;
 
+            // follow entitity closely
             const newOffsetX = targetX - this.container.clientWidth / 2 + this.targetEntity.width / 2;
             const newOffsetY = targetY - this.container.clientHeight / 2 + this.targetEntity.height / 2;
-            
-            if(this.container.getBoundingClientRect().x !== newOffsetX){
+            // Apply the new position to the container's scroll position
+            if(this.container.scrollLeft !== newOffsetX){
                 this.container.style.transform = `translate(${this.offsetX - newOffsetX}px, ${this.offsetY - newOffsetY}px)`;
             }
-            
             this.container.style.backgroundColor = this.voidColor;
 
 
             // Update the camera's offset values
             this.offsetX = newOffsetX / 5
             this.offsetY = newOffsetY / 2;
+
+            return {
+                x: this.offsetX,
+                y: this.offsetY
+            }
+        }else{
+            throw new Error('Camera must have a target entity')
         }
+        requestAnimationFrame(() => this.update());
+        
     }
 }
 
@@ -963,6 +972,26 @@ class GameScene extends Scene {
             // Cleanup input when the key is released
             this.cleanupInputs();
         });
+
+
+        this.addCustomInput('ArrowUp', () => {
+            // Calculate the new position
+            const newY = this.player.y - 10;
+
+            // Check for collision with the top window boundary
+            if (newY >= 0) {
+                this.player.setPosition(this.player.x, newY);
+            }
+        }, () => {});
+        this.addCustomInput('ArrowDown', () => {
+            // Calculate the new position
+            const newY = this.player.y + 10;
+
+            // Check for collision with the bottom window boundary
+            if (newY + this.player.height <= this.engine.window().clientHeight) {
+                this.player.setPosition(this.player.x, newY);
+            }
+        }, () => {});
 
     }
 }
