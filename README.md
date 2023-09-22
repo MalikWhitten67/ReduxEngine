@@ -52,8 +52,13 @@ class StartMenu extends Scene{
     * @property {HTMLElement} element - The UI element
     * @method on - Add an event listener to the UI element
      **/
+ 
+
+    
 
     startText =  new UI(100, 100, 200, 50, startText, 'startui');
+// you can use external files using the new require function
+   startText.require('./file')  // this replaces the html - you can get element id's by setting the id to the element in the file then calling the on function
   }
 
   updateCallback(entities){
@@ -67,7 +72,7 @@ class StartMenu extends Scene{
   // This is ran at loop start here we can apply logic to the ui element and add it to the screen
 
   uilogic(){
-   this.startText.on('click', (e) =>{
+   this.startText.on('ID', 'click', (e) =>{
      this.engine.startScene('Game')
    })
    // append the uiElement to the game scene
@@ -143,6 +148,7 @@ class GameMenu extends Scene {
      }, ()=>{
      // do something when the RightArrow is released
     })
+   
   }
 }
 
@@ -154,3 +160,7 @@ engine.start() // loop the engine
 let fps = 60
 engine.logFps(fps, 'red')
 ```
+
+
+ 
+
