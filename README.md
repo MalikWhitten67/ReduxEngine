@@ -57,8 +57,8 @@ class StartMenu extends Scene{
     
 
     startText =  new UI(100, 100, 200, 50, startText, 'startui');
-// you can use external files using the new require function
-   startText.require('./file')  // this replaces the html - you can get element id's by setting the id to the element in the file then calling the on function
+    // you can use external files using the new require function
+    startText.require('./file')  // this replaces the html - you can get element id's by setting the id to the element in the file then calling the on function
   }
 
   updateCallback(entities){
@@ -106,9 +106,11 @@ class GameMenu extends Scene {
 
    this.entities.push(this.player) // apply the Entity to the game scene
    // Apply a camera to the given scene - it follows the player closely
-   const camera = new Camera(this.engine.window(), this.player, 'white');
+   const camera = new Camera(this.engine.window(), 'white');
    // set camera
    this.engine.setCamera(camera)
+   // set the camera to follow the player entity
+   camera.follow(this.player);
  }
 
   updateCallback(entities){
